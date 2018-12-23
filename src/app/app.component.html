@@ -1,4 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-
+ <span *ngIf="loading; else done">Loading...</span>
 </div>
+
+<ng-template #done>Done loading.</ng-template>
+<ul *ngFor="let todo of todos">
+  <li>{{ todo.id }} {{ todo.title }} {{ todo.completed }}</li>
+</ul>

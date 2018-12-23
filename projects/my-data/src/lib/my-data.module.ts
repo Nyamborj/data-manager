@@ -3,6 +3,7 @@ import { MetaReducer, META_REDUCERS, StoreModule } from '@ngrx/store';
 
 import { MyDataComponent } from './my-data.component';
 import { DataModule } from './data/index';
+import { ApiService } from './services/index';
 
 @NgModule({
   imports: [
@@ -10,6 +11,9 @@ import { DataModule } from './data/index';
     DataModule
   ],
   declarations: [MyDataComponent],
-  exports: [MyDataComponent]
+  exports: [MyDataComponent],
+  providers: [
+    ApiService
+  ]
 })
 export class MyDataModule { }

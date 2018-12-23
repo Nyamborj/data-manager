@@ -1,3 +1,4 @@
 export enum DataNames {
-  Person = 'person'
+  Person = 'person',
+  Todos = 'todos'
 }

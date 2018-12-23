@@ -9,3 +9,4 @@ export * from './lib/base/base.selector';
 export * from './lib/enums/data-names.enum';
 export * from './lib/injection-tokens/tokens';
 export * from './lib/data/index';
+export * from './lib/services/index';
