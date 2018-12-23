@@ -10,7 +10,7 @@ import { ApiService } from 'my-data';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  protected unsubscribe$ = new Subject<void>();
+  protected unsubscribe$ = new Subject();
   public loading = false;
   public todos: any[];
 
