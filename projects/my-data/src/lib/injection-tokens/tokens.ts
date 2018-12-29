@@ -28,3 +28,11 @@ export const API_STORE_REDUCER_FACTORY = new InjectionToken(
 export const API_STORE_FEATURE_NAME = new InjectionToken<string>(
   'data apiStore feature name'
 );
+
+export const DATA_LOCAL_STORAGE_AUTO_SYNC_FEATURES = new InjectionToken<
+  string[]
+>('data local storage auto sync features');
+
+export const TOKEN_FEATURE_NAME = new InjectionToken<string>(
+  'data token feature name'
+);
