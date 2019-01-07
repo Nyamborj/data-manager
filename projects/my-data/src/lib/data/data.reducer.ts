@@ -45,33 +45,3 @@ export function apiDataReducerFactory(): (state: ApiDataFeatureState, action: Da
     }
   };
 }
-
-// export function apiDataReducerFactory(
-//   state: ApiDataFeatureState,
-//   action: DataActions
-// ): ApiDataFeatureState {
-//   switch (action.type) {
-//     case ApiDataActionTypes.UpsertApiData: {
-//       return apiDataAdapter.upsertOne(
-//         { id: action.payload.key, value: action.payload.data },
-//         state
-//       );
-//     }
-
-//     case ApiDataActionTypes.DeleteApiData: {
-//       return apiDataAdapter.removeOne(action.payload.id, state);
-//     }
-
-//     case ApiDataActionTypes.ClearApiDatas: {
-//       return apiDataAdapter.removeAll(state);
-//     }
-
-//     case ApiDataActionTypes.ClearApiData: {
-//       return apiDataAdapter.removeOne(action.payload.key, state);
-//     }
-
-//     default: {
-//       return state;
-//     }
-//   }
-// }

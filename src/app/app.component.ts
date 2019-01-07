@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Subject, Observable } from "rxjs";
+import { takeUntil, take, tap, filter } from "rxjs/operators";
 
-import { ApiService } from 'my-data';
+import { ApiService, TimerService, WindowRef } from "my-data";
+import { TimerStatus } from "projects/my-data/src/lib/enums";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit, OnDestroy {
   protected unsubscribe$ = new Subject();
@@ -15,8 +16,31 @@ export class AppComponent implements OnInit, OnDestroy {
   public todos: any[];
 
   constructor(
-    private apiService: ApiService
-  ) {}
+    private apiService: ApiService,
+    private timerService: TimerService,
+    private windowRefService: WindowRef
+  ) {
+    this.timerService.start();
+
+    this.windowRefService.nativeWindow.addEventListener('click', () => {
+      this.timerService.currentStatus$
+        .pipe(
+          take(1),
+          filter(status => status !== TimerStatus.Expired)
+        )
+        .subscribe(() => {
+          this.timerService.restart();
+        });
+    });
+  }
+
+  get remainingTime$(): Observable<any> {
+    return this.timerService.remainingTime$;
+  }
+
+  get timerStatus$(): Observable<TimerStatus> {
+    return this.timerService.currentStatus$;
+  }
 
   async ngOnInit() {
     this.loading = true;
@@ -25,7 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.apiService.todos$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(c => (this.todos = c));
+      .subscribe(todos => (this.todos = todos));
   }
 
   ngOnDestroy() {

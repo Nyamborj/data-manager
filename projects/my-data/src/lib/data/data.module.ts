@@ -7,7 +7,6 @@ import {
 } from '../injection-tokens/tokens';
 import { apiDataReducerFactory } from './data.reducer';
 
-
 @NgModule({
   providers: [
     {
