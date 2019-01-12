@@ -8,7 +8,7 @@ import { TimerStatus } from '../enums/index';
   providedIn: 'root'
 })
 export class TimerService {
-  private timeLeft = environment.timeout;
+  private timeLeft = environment.idleTimeout;
   private status = TimerStatus.Stopped;
   private interval: any;
   private remainingTimeSubject$ = new BehaviorSubject<number>(this.timeLeft);
@@ -56,7 +56,7 @@ export class TimerService {
   }
 
   public stop(): void {
-    this.timeLeft = environment.timeout;
+    this.timeLeft = environment.idleTimeout;
 
     clearInterval(this.interval);
 

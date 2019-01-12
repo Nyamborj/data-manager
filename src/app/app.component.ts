@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subject, Observable } from "rxjs";
-import { takeUntil, take, tap, filter } from "rxjs/operators";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
+import { takeUntil, take, tap, filter } from 'rxjs/operators';
 
-import { ApiService, TimerService, WindowRef } from "my-data";
-import { TimerStatus } from "projects/my-data/src/lib/enums";
+import { ApiService, TimerService, WindowRef } from 'my-data';
+import { TimerStatus } from 'projects/my-data/src/lib/enums';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
   protected unsubscribe$ = new Subject();
