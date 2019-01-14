@@ -8,6 +8,8 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { MyDataModule } from 'my-data';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { ModalModule } from './modules';
+import { ModalBoxComponent } from './modules/modal/components';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? [storeFreeze]
@@ -21,9 +23,11 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     BrowserModule,
     MyDataModule.withMetaReducers(metaReducers),
     StoreDevtoolsModule.instrument({}),
-    HttpClientModule
+    HttpClientModule,
+    ModalModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ModalBoxComponent]
 })
 export class AppModule { }

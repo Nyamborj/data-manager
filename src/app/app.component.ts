@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil, take, tap, filter } from 'rxjs/operators';
+import { takeUntil, take, filter } from 'rxjs/operators';
 
 import { ApiService, TimerService, WindowRef } from 'my-data';
 import { TimerStatus } from 'projects/my-data/src/lib/enums';
+import { ModalService } from './modules/modal/services/modal.service';
+import { ModalBoxComponent } from './modules/modal/components';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +20,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private timerService: TimerService,
-    private windowRefService: WindowRef
+    private windowRefService: WindowRef,
+    private modalService: ModalService
   ) {
     this.timerService.start();
 
@@ -50,6 +53,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.apiService.todos$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(todos => (this.todos = todos));
+  }
+
+  public removeModal(): void {
+    this.modalService.destroy();
+  }
+
+  public showModal(): void {
+    this.modalService.init(ModalBoxComponent, {}, {});
   }
 
   ngOnDestroy() {

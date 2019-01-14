@@ -2,6 +2,7 @@
  <span *ngIf="loading; else done">Loading...</span>
 </div>
 
+<button (click)="showModal()">Show modal box</button>
 <div>Timeout remaining: {{ remainingTime$ | async }}</div>
 <div>Timeout status: {{ timerStatus$ | async }}</div>
 
@@ -9,3 +10,7 @@
 <ul *ngFor="let todo of todos | slice:0:10">
   <li>{{ todo.id }} {{ todo.title }} {{ todo.completed }}</li>
 </ul>
+
+<!-- Custom modal setup -->
+<div id="modal-container" class="hidden"></div>
+<div id="overlay" (click)="removeModal()" class="hidden"></div>
