@@ -12,6 +12,7 @@ import {
   TOKEN_FEATURE_NAME,
   API_STORE_FEATURE_NAME
 } from './injection-tokens';
+import { WINDOW_PROVIDERS } from './services/window.service';
 
 export function localStorageMetaReducer(
   keys: string[],
@@ -56,7 +57,8 @@ export function localStorageSyncFactory(...params: string[]): string[] {
     {
       provide: RESOURCE_FEATURE_NAME,
       useValue: 'test.resources'
-    }
+    },
+    WINDOW_PROVIDERS
   ]
 })
 export class MyDataModule {

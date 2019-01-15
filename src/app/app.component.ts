@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil, take, filter } from 'rxjs/operators';
 
-import { ApiService, TimerService, WindowRef } from 'my-data';
+import { ApiService, TimerService, WindowRef, WINDOW } from 'my-data';
 import { TimerStatus } from 'projects/my-data/src/lib/enums';
 import { ModalService } from './modules/modal/services/modal.service';
 import { ModalBoxComponent } from './modules/modal/components';
@@ -20,12 +20,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private timerService: TimerService,
-    private windowRefService: WindowRef,
+    @Inject(WINDOW) private globalWindow,
     private modalService: ModalService
   ) {
     this.timerService.start();
 
-    this.windowRefService.nativeWindow.addEventListener('click', () => {
+    this.globalWindow.addEventListener('click', () => {
       this.timerService.currentStatus$
         .pipe(
           take(1),
