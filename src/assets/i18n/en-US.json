@@ -1,0 +1,7 @@
+{
+  "mydata": {
+    "title": "Welcome to TODO app",
+    "loading": "Wait while loading...",
+    "doneLoading": "Finally stopped loading"
+  }
+}

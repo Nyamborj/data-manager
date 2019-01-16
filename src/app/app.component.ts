@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil, take, filter } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
-import { ApiService, TimerService, WindowRef, WINDOW } from 'my-data';
+import { ApiService, TimerService, WINDOW } from 'my-data';
 import { TimerStatus } from 'projects/my-data/src/lib/enums';
 import { ModalService } from './modules/modal/services/modal.service';
 import { ModalBoxComponent } from './modules/modal/components';
@@ -21,8 +22,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private timerService: TimerService,
     @Inject(WINDOW) private globalWindow,
-    private modalService: ModalService
+    private modalService: ModalService,
+    protected readonly translateService: TranslateService,
   ) {
+    translateService.setDefaultLang('en-US');
     this.timerService.start();
 
     this.globalWindow.addEventListener('click', () => {

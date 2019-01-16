@@ -1,12 +1,13 @@
 <div style="text-align:center">
- <span *ngIf="loading; else done">Loading...</span>
+  <div>{{ 'mydata.title' | translate }}</div>
+ <span *ngIf="loading; else done">{{ 'mydata.loading' | translate }}</span>
 </div>
 
 <button (click)="showModal()">Show modal box</button>
 <div>Timeout remaining: {{ remainingTime$ | async }}</div>
 <div>Timeout status: {{ timerStatus$ | async }}</div>
 
-<ng-template #done>Done loading.</ng-template>
+<ng-template #done>{{ 'mydata.doneLoading' | translate }}</ng-template>
 <ul *ngFor="let todo of todos | slice:0:10">
   <li>{{ todo.id }} {{ todo.title }} {{ todo.completed }}</li>
 </ul>

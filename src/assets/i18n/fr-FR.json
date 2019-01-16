@@ -1,0 +1,7 @@
+{
+  "mydata": {
+    "title": "Bienvenue sur l'application TODO",
+    "loading": "Attendre pendant le chargement...",
+    "doneLoading": "Enfin arrêté le chargement"
+  }
+}
