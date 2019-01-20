@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ModalService } from '../../services/modal.service';
 
@@ -8,6 +8,11 @@ import { ModalService } from '../../services/modal.service';
   styleUrls: ['./modal-box.component.css']
 })
 export class ModalBoxComponent implements OnInit {
+  public message = '';
+
+  public set Message(value) {
+    this.message = value;
+  }
 
   constructor(private modalService: ModalService) {}
 

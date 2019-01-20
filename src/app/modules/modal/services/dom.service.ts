@@ -47,7 +47,10 @@ export class DomService {
   }
 
   private attachConfig(config: IChildConfig, componentRef: any): void {
-    componentRef.instance['inputs'] = config.inputs;
+    // componentRef.instance['inputs'] = config.inputs;
+
+    // TODO: Explore this some more.
+    componentRef.instance.message = config.inputs['message'];
     componentRef.instance['outputs'] = config.outputs;
   }
 }

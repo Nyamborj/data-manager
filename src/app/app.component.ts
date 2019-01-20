@@ -3,10 +3,12 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil, take, filter } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
-import { ApiService, TimerService, WINDOW } from 'my-data';
+import { ApiService, TimerService, ConnectionService, WINDOW } from 'my-data';
 import { TimerStatus } from 'projects/my-data/src/lib/enums';
 import { ModalService } from './modules/modal/services/modal.service';
 import { ModalBoxComponent } from './modules/modal/components';
+
+type ModalStatus = 'hidden' | 'visible';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   protected unsubscribe$ = new Subject();
   public loading = false;
   public todos: any[];
+  private modalStatus: ModalStatus = 'hidden';
 
   constructor(
     private apiService: ApiService,
@@ -24,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(WINDOW) private globalWindow,
     private modalService: ModalService,
     protected readonly translateService: TranslateService,
+    protected readonly connectionService: ConnectionService
   ) {
     translateService.setDefaultLang('en-US');
     this.timerService.start();
@@ -38,6 +42,22 @@ export class AppComponent implements OnInit, OnDestroy {
           this.timerService.restart();
         });
     });
+
+    this.connectionService
+      .monitor()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(isConnected => {
+        if (isConnected && this.modalStatus === 'visible') {
+          this.removeModal();
+          return;
+        }
+
+        if (isConnected || (!isConnected && this.modalStatus === 'visible')) {
+          return;
+        }
+
+        this.showModal();
+      });
   }
 
   get remainingTime$(): Observable<any> {
@@ -60,10 +80,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public removeModal(): void {
     this.modalService.destroy();
+    this.modalStatus = 'hidden';
   }
 
   public showModal(): void {
-    this.modalService.init(ModalBoxComponent, {}, {});
+    this.modalService.init(ModalBoxComponent, { message: 'Network is disconnected!' }, {});
+    this.modalStatus = 'visible';
   }
 
   ngOnDestroy() {

@@ -1,0 +1,9 @@
+.modal-container {
+  border: 1px solid red;
+  padding: 10px;
+}
+
+.message {
+  font-weight: 700;
+  margin: 10px;
+}
