@@ -1,25 +1,42 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil, take, filter } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
+import { Subject, Observable } from "rxjs";
+import { takeUntil, take, filter } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
 
-import { ApiService, TimerService, ConnectionService, WINDOW } from 'my-data';
-import { TimerStatus } from 'projects/my-data/src/lib/enums';
-import { ModalService } from './modules/modal/services/modal.service';
-import { ModalBoxComponent } from './modules/modal/components';
+import { ApiService, TimerService, ConnectionService, WINDOW } from "my-data";
+import { TimerStatus } from "projects/my-data/src/lib/enums";
+import { ModalService } from "./modules/modal/services/modal.service";
+import { ModalBoxComponent } from "./modules/modal/components";
 
-type ModalStatus = 'hidden' | 'visible';
+type ModalStatus = "hidden" | "visible";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit, OnDestroy {
   protected unsubscribe$ = new Subject();
   public loading = false;
   public todos: any[];
-  private modalStatus: ModalStatus = 'hidden';
+  private modalStatus: ModalStatus = "hidden";
+  public imageItemCollection = [
+    {
+      url:
+        "https://images.unsplash.com/photo-1512672378591-74fbb56b1d28?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=111881731843c98860fd6ede341337d7&auto=format&fit=crop&w=1350&q=80",
+      show: false
+    },
+    {
+      url:
+        "https://images.unsplash.com/photo-1486495939893-f384c2860f55?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bf36a4694839666ab094bcdd0bb88651&auto=format&fit=crop&w=1350&q=80",
+      show: false
+    },
+    {
+      url:
+        "https://images.unsplash.com/photo-1514913274516-4aa04f176f8c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a6940b0c53d64fc564bed31bb6aa8d9b&auto=format&fit=crop&w=1760&q=80",
+      show: false
+    }
+  ];
 
   constructor(
     private apiService: ApiService,
@@ -29,10 +46,10 @@ export class AppComponent implements OnInit, OnDestroy {
     protected readonly translateService: TranslateService,
     protected readonly connectionService: ConnectionService
   ) {
-    translateService.setDefaultLang('en-US');
+    translateService.setDefaultLang("en-US");
     this.timerService.start();
 
-    this.globalWindow.addEventListener('click', () => {
+    this.globalWindow.addEventListener("click", () => {
       this.timerService.currentStatus$
         .pipe(
           take(1),
@@ -47,12 +64,12 @@ export class AppComponent implements OnInit, OnDestroy {
       .monitor()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(isConnected => {
-        if (isConnected && this.modalStatus === 'visible') {
+        if (isConnected && this.modalStatus === "visible") {
           this.removeModal();
           return;
         }
 
-        if (isConnected || (!isConnected && this.modalStatus === 'visible')) {
+        if (isConnected || (!isConnected && this.modalStatus === "visible")) {
           return;
         }
 
@@ -80,12 +97,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public removeModal(): void {
     this.modalService.destroy();
-    this.modalStatus = 'hidden';
+    this.modalStatus = "hidden";
   }
 
   public showModal(): void {
-    this.modalService.init(ModalBoxComponent, { message: 'Network is disconnected!' }, {});
-    this.modalStatus = 'visible';
+    this.modalService.init(
+      ModalBoxComponent,
+      { message: "Network is disconnected!" },
+      {}
+    );
+    this.modalStatus = "visible";
   }
 
   ngOnDestroy() {

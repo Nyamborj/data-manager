@@ -3,6 +3,7 @@ import { MetaReducer, META_REDUCERS, StoreModule } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
 import { MyDataComponent } from './my-data.component';
+import { DeferLoadDirective } from './directives';
 import { DataModule } from './data/index';
 import {
   ROOT_META_REDUCERS,
@@ -33,8 +34,8 @@ export function localStorageSyncFactory(...params: string[]): string[] {
     StoreModule.forRoot({}),
     DataModule
   ],
-  declarations: [MyDataComponent],
-  exports: [MyDataComponent],
+  declarations: [MyDataComponent, DeferLoadDirective],
+  exports: [MyDataComponent, DeferLoadDirective],
   providers: [
     {
       provide: DATA_LOCAL_STORAGE_AUTO_SYNC_FEATURES,

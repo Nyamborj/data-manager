@@ -1,14 +1,24 @@
 <div style="text-align:center">
-  <div>{{ 'mydata.title' | translate }}</div>
- <span *ngIf="loading; else done">{{ 'mydata.loading' | translate }}</span>
+  <div>{{ "mydata.title" | translate }}</div>
+  <span *ngIf="loading; else done">{{ "mydata.loading" | translate }}</span>
 </div>
 
 <button (click)="showModal()">Show modal box</button>
 <div>Timeout remaining: {{ remainingTime$ | async }}</div>
 <div>Timeout status: {{ timerStatus$ | async }}</div>
 
-<ng-template #done>{{ 'mydata.doneLoading' | translate }}</ng-template>
-<ul *ngFor="let todo of todos | slice:0:10">
+<div
+  class="image-container"
+  *ngFor="let image of imageItemCollection"
+  (deferLoad)="image.show = true"
+>
+  <ng-container *ngIf="image.show">
+    <img name="beautiful-image" src="{{ image.url }}" />
+  </ng-container>
+</div>
+
+<ng-template #done>{{ "mydata.doneLoading" | translate }}</ng-template>
+<ul *ngFor="let todo of (todos | slice: 0:10)">
   <li>{{ todo.id }} {{ todo.title }} {{ todo.completed }}</li>
 </ul>
 
