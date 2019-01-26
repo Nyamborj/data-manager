@@ -25,12 +25,14 @@ export const untilDestroyed = (
     // Override the destroy method.
     componentInstance[destroyMethodName] = function() {
       // Make sure to call the original destroy method.
-      isFunction(origDestroyMethod) && origDestroyMethod.apply(this, arguments);
+      if (isFunction(origDestroyMethod)) {
+        origDestroyMethod.apply(this, arguments);
+      }
 
       componentInstance['__takeUntilDestroy'].next(true);
       componentInstance['__takeUntilDestroy'].complete();
     };
   }
-  
+
   return source.pipe(takeUntil<T>(componentInstance['__takeUntilDestroy']));
 };
