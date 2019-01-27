@@ -17,7 +17,7 @@ export class RatingInputComponent implements ControlValueAccessor {
   
   public stars: boolean[] = Array(5).fill(false);
 
-  // Allow the input to be disabled, and when it is make it somewhat transparent.
+  // Allow the input to be disabled.
   @Input() disabled = false;
   
   @HostBinding('style.opacity')
