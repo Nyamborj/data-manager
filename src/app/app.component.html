@@ -3,6 +3,7 @@
   <span *ngIf="loading; else done">{{ "mydata.loading" | translate }}</span>
 </div>
 
+<app-form></app-form>
 <button (click)="showModal()">Show modal box</button>
 <div>Timeout remaining: {{ remainingTime$ | async }}</div>
 <div>Timeout status: {{ timerStatus$ | async }}</div>

@@ -30,11 +30,6 @@ export class AppComponent implements OnInit, OnDestroy {
       url:
         'https://images.unsplash.com/photo-1486495939893-f384c2860f55?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bf36a4694839666ab094bcdd0bb88651&auto=format&fit=crop&w=1350&q=80', // tslint:disable-line
       show: false
-    },
-    {
-      url:
-        'https://images.unsplash.com/photo-1514913274516-4aa04f176f8c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a6940b0c53d64fc564bed31bb6aa8d9b&auto=format&fit=crop&w=1760&q=80', // tslint:disable-line
-      show: false
     }
   ];
 
