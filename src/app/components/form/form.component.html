@@ -1,0 +1,12 @@
+<form class="form-wrapper" [formGroup]="myForm" (ngSubmit)="submit()">
+  <div>Value: {{ myForm.value | json }}</div>
+
+  <label> Email address: <input type="text" formControlName="email" /> </label>
+  <label> Full Name: <input type="text" formControlName="name" /> </label>
+
+  <app-rating-input formControlName="rating"></app-rating-input>
+
+  <button type="submit" [disabled]="!myForm.valid">Submit</button>
+
+  <p>Form Status: {{ myForm.status }}</p>
+</form>
