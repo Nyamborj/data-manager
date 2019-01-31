@@ -36,3 +36,5 @@ export const DATA_LOCAL_STORAGE_AUTO_SYNC_FEATURES = new InjectionToken<
 export const TOKEN_FEATURE_NAME = new InjectionToken<string>(
   'data token feature name'
 );
+
+export const DOCUMENT = new InjectionToken<Document>('DocumentToken');

@@ -22,6 +22,7 @@ import { ModalBoxComponent } from './modules/modal/components';
 import { CustomTranslateHttpLoader } from './services/custom-translate-http-loader';
 import { RatingInputComponent } from './components/rating-input/rating-input.component';
 import { FormComponent } from './components/form/form.component';
+import { OverlayComponent } from './components/modal/overlay-component';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? [storeFreeze]
@@ -35,7 +36,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     RatingInputComponent,
-    FormComponent
+    FormComponent,
+    OverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ModalBoxComponent]
+  entryComponents: [ModalBoxComponent, OverlayComponent]
 })
 export class AppModule { }

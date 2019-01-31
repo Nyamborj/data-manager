@@ -7,6 +7,7 @@ import { ApiService, TimerService, ConnectionService, WINDOW } from 'my-data';
 import { TimerStatus } from 'projects/my-data/src/lib/enums';
 import { ModalService } from './modules/modal/services/modal.service';
 import { ModalBoxComponent } from './modules/modal/components';
+import { FilePreviewOverlayService } from './components/modal/overlay-service';
 
 type ModalStatus = 'hidden' | 'visible';
 
@@ -39,7 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(WINDOW) private globalWindow,
     private modalService: ModalService,
     protected readonly translateService: TranslateService,
-    protected readonly connectionService: ConnectionService
+    protected readonly connectionService: ConnectionService,
+    protected readonly overlayDialog: FilePreviewOverlayService
   ) {
     translateService.setDefaultLang('en-US');
     this.timerService.start();
@@ -102,6 +104,14 @@ export class AppComponent implements OnInit, OnDestroy {
       {}
     );
     this.modalStatus = 'visible';
+  }
+
+  public showFilePreviewModal(): void {
+    const image = {
+      name: 'image_1.jpg',
+      url: 'https://static.pexels.com/photos/371633/pexels-photo-371633.jpeg'
+    };
+    this.overlayDialog.open({ image });
   }
 
   ngOnDestroy() {

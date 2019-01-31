@@ -11,7 +11,8 @@ import {
   API_DATA_FEATURE_NAME,
   RESOURCE_FEATURE_NAME,
   TOKEN_FEATURE_NAME,
-  API_STORE_FEATURE_NAME
+  API_STORE_FEATURE_NAME,
+  DOCUMENT
 } from './injection-tokens';
 import { WINDOW_PROVIDERS } from './services/window.service';
 
@@ -27,6 +28,10 @@ export function localStorageMetaReducer(
 
 export function localStorageSyncFactory(...params: string[]): string[] {
   return params;
+}
+
+export function _document(): any {
+  return document;
 }
 
 @NgModule({
@@ -58,6 +63,11 @@ export function localStorageSyncFactory(...params: string[]): string[] {
     {
       provide: RESOURCE_FEATURE_NAME,
       useValue: 'test.resources'
+    },
+    {
+      provide: DOCUMENT,
+      useFactory: _document,
+      deps: []
     },
     WINDOW_PROVIDERS
   ]
